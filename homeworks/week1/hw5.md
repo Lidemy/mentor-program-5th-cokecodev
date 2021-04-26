@@ -20,6 +20,6 @@
   
 - git stash pop 把剪貼簿的更動內容貼到目標分支
 
-- git list  查看 stash 裡面有甚麼東西
+- git stash list  查看 stash 裡面有甚麼東西
 
 
