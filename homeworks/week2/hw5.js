@@ -1,19 +1,19 @@
 function join(arr, concatStr) {
   let ans1 =''
-  for (i=0; i<arr.length-1; i++){
-      ans1+=(arr[i]+concatStr)
+  for (let i = 0; i < arr.length-1; i++) {
+      ans1 += arr[i] + concatStr
   }
-ans1+=arr[(arr.length-1)]
-return(ans1)
+ans1 += arr[(arr.length-1)]
+return ans1
 }
 
 
 function repeat(str, times) {
-    let ans2=''
-    for (i=1;i<=times;i++){
-        ans2+=str
+    let ans2 = ''
+    for (let i = 1; i <= times; i++) {
+        ans2 += str
     }
-  return(ans2)
+  return ans2
 }
 
 console.log(join(["a", 1, "b", 2, "c", 3], ','));
