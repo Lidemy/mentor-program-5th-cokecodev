@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>FQA-常見問題</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css" />
+    </head>
+    <style>
+        .navbar {
+            box-shadow:-1.4px -1.4px 6px 0 #97a2a0 ;  
+        }
+        /*這邊上面是在寫陰影*/
+
+        .navbar .wapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 84px;
+            background: white;
+            padding: 0px 24px;  
+        }
+       
+        .navbar__site-name{
+            color: #489846;
+            font-size: 36px;
+            font-family: 微軟正黑體;
+        }
+
+        .navbar__list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            
+        }
+
+        .navbar__list li {
+            margin-left: 24px;
+            font-family: 微軟正黑體;
+            border-radius: 8px;
+            transition:backgroud 0.1s;
+            }
+        
+
+        .navbar__list li.active, 
+        .navbar__list li:hover {
+            background: #ff7286;  
+        }
+
+        .navbar__list li.active a, 
+        .navbar__list li:hover a {
+            color: white;
+        }
+
+        .navbar__list li a {
+            display: block;
+            color: black;
+            text-decoration: none;
+            padding: 12px 24px;
+        }
+
+        .wapper {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 12px;
+        }
+
+        .banner {
+            position: relative;
+            height: 450px;
+            background: url(./bg.jpg) center/cover no-repeat;
+        }
+
+        .banner:after {
+            content:'';
+            position: absolute;
+            background: rgba(0,0,0,0.25);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        .banner h1 {
+            display: inline-block;
+            position: relative;
+            margin: 0px;
+            color: white;
+            z-index: 2;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            font-size: 60px;
+            font-weight: bold;
+        }
+
+        h2 {
+            margin: 0px;
+        }
+        
+        .section {
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .section__title {
+            display: inline-block;
+            font-size: 36px;
+            border-left: solid 15px #a3dea2;
+            padding-left: 17px;
+            margin-bottom: 36px;
+        }
+       
+
+        /*----footer-----*/
+        footer {
+            margin-top: 40px;
+        }
+
+        .footer__top {
+            background: #e8efee;
+            padding: 32px 0px;
+            color: #484848;
+        }
+
+        .footer__top .wapper {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .footer__info {
+            margin-right: 16px;
+            font-family: 微軟正黑體;
+        }
+
+        .footer__info div + div {
+            margin-top: 10px;
+        }
+
+        .footer__site__site-name {
+            color: #489846;
+            font-size: 36px;
+            font-family: Questrial;
+        }
+
+        .footer__bottom {
+            background: #35564b;
+            padding: 15px 15px;
+            text-align: center;
+            color: white;
+            font-size: 16px;
+            font-family: 微軟正黑體;
+        }
+        
+        @media(max-width:768px) {
+            .navbar .wapper {
+            height: 120px;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 0px;
+            }
+            .navbar__site-name {
+                margin-top:10Px;
+            }
+
+            .navbar__list {
+                display: flex;
+                width: 100%;
+            }
+            .navbar__list li {
+                flex: 1; 
+                margin-left:0px;
+                border-radius: 0px;
+                text-align: center;
+            }
+            .btn_query {
+                margin-left:0px;
+                margin-top:20px;
+                background:#f9f9b5;
+            }
+            .section__images {
+                flex-direction: column;
+            }
+
+            .section__comments {
+            display: block;
+            }
+
+            .section__comment {
+            width: 100%;
+            margin-top: 100px;
+            }
+
+            .section__comment + .section__comment {
+            margin-left: 0px;
+            }
+
+            .section__images div { 
+                width:100%;
+            }
+
+            .footer__top .wapper {
+                flex-direction: column-reverse;
+            }
+
+            .footer__info {
+                margin-right: 0px;
+                margin-top: 10px;
+            }
+
+            .footer__site {
+                padding-bottom: 30px;
+            }
+
+        }
+
+        /*-----FQA區-----*/
+        .questions {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 12px;
+
+        }
+
+        .question__block {
+            border-bottom:1px solid #a6e2c0;
+            padding-bottom:28px;
+        }
+
+        /*隱藏相關功能*/
+        .hide__answer .question_answer {
+            display:none;
+        }
+
+        .question__number {
+            color: #70b282;
+            font-size: 24px;
+            font-family:微軟正黑體;
+            display:inline-block;
+            margin-left:16px;
+        }
+
+        .question_title {
+            color: black;
+            font-size: 18px;
+            font-family:微軟正黑體;
+            display:inline-block;
+            margin-left:16px;
+        }
+        .question_answer {
+            color: black;
+            font-size: 16px;
+            font-family:微軟正黑體;
+            margin-left: 64px;
+            margin-right:20px
+
+        }
+
+
+        .question__block.question__block {
+            margin-top:28px;
+        }
+
+    </style>
+    <body>
+        <nav class='navbar'>
+            <div class='wapper'>
+                <div class='navbar__site-name'>Just A Bit</div>
+                <ul class='navbar__list'>
+                    <li class='active'><a href='#'>抽個大獎</a></li>
+                    <li><a href='#'>我要點餐</a></li>
+                    <li><a href='#'>查詢訂單</a></li>
+                    <li><a href='#'>常見問題</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class='wapper'>
+            <section class='section'>
+                <h2 class='section__title'>FQA-常見問題</h2>
+            </section>
+
+            <section class='questions'>
+                <div class='question__block hide__answer'>
+                    <h2 class='question__number'>Q1</h2>
+                    <h2 class='question_title'>是否可使用振興五倍券</h2>
+                    <p class='question_answer'>官網適用已綁定數位振興五倍券，各門市可使用紙本與數位振興五倍券，可使用期間：依行政院公告為準。
+                    </p>
+                </div>
+
+                <div class='question__block hide__answer'><!--/*how to對齊內容跟標題????*/-->
+                    <h2 class='question__number'>Q2</h2>
+                    <h2 class='question_title'>振興五倍券是否可找零</h2>
+                    <p class='question_answer'>官網適用數位振興五倍券，於本公司官網及各門市使用數位、紙本振興五倍券，恕不提供找零服務，造成不便敬請見諒。</p>
+                </div>
+
+                <div class='question__block hide__answer'>
+                    <h2 class='question__number'>Q3</h2>
+                    <h2 class='question_title'>是否可以分期付款</h2>
+                    <p class='question_answer'>單筆結帳金額NT.3000以上，提供無息3期分期期數。請確認您的信用卡發卡銀行是否在我們接受的分期銀行名單內(不含簽帳金融卡)，以免授權失敗。</p>
+                </div>
+
+                <div class='question__block hide__answer'>
+                    <h2 class='question__number'>Q4</h2>
+                    <h2 class='question_title'>超商取貨注意事項</h2>
+                    <p class='question_answer'>訂單完成出貨後，將會於 3-7 個工作天抵達指定超商門市，到貨時將會發送到貨簡訊提醒。請於送達門市後的七日內完成取件付款，請攜帶身分證件，並提供取件人大名及電話末三碼完成取貨。</p>
+                </div>
+
+                <div class='question__block hide__answer'>
+                    <h2 class='question__number'>Q5</h2>
+                    <h2 class='question_title'>如何查詢訂單狀態</h2>
+                    <p class='question_answer'>查詢訂單紀錄、配送狀態：登入官網 → 我的訂單/訂單查詢 → 顯示三個月內消費的訂單紀錄</p>
+                </div>
+
+                <div class='question__block hide__answer'>
+                    <h2 class='question__number'>Q6</h2>
+                    <h2 class='question_title'>如何辦理退換貨</h2>
+                    <p class='question_answer'>進入官網→ 線上客服 →問題類型：退貨問題→提供「訂單編號/退貨商品名稱、顏色尺寸」等相關資訊，客服將會於服務時間內提供後續服務說明。</p>
+                </div>
+            </section>
+        </div>
+       
+
+
+            
+       
+
+
+
+         <footer>
+             <div class='footer__top'>
+                 <div class='wapper'>
+                    <div class='footer__info'>
+                        <div>餐館地址: 天上地下天堂路三分之一里六段520號</div>
+                        <div>訂位專線：02-1314-5566</div>
+                        <div>營業時間：週一〜週五 09:00~18:00 / 週六、週日、國定假日（含連假）休息</div>
+                        <div>email：service@justabite.com.tw</div>
+                    </div>
+                    <div class='footer__site'>
+                        <div class='footer__site__site-name'>Just A Bite !</div>
+                        <div>Facebook/Instargram/Youtube</div>
+                    </div>
+                 </div>
+            </div>
+
+             <div class='footer__bottom'>
+                 Copyright © 2020 Just A Bite All Rights Reserved. 咬一口股份有限公司版權所有
+            </div>
+         </footer>
+         <script>
+
+             const move = document.querySelector('.questions')
+             move.addEventListener('click',function(e){
+                 const clickTarget = e.target /* 從e裡面拿到被點擊的元素 */
+                 const checkLevel = clickTarget.parentNode.classList
+                 /*註解
+                 [...] 把 nodeList 變成 array
+                 array.some */
+                 if([...checkLevel].some(x=>x=='question__block')){
+                    clickTarget.parentNode.classList.toggle('hide__answer')
+                 }
+                 
+                 if([...checkLevel].some (x=>x='questions')){
+                    clickTarget.classList.toggle('hide__answer')
+                 }
+                 })
+             
+
+
+         </script>
+    </body>
+</html>
