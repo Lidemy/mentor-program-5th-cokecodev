@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>test6</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css" />
+    </head>
+    <style>
+        .chart {
+            max-width: 645px;
+            margin: 10% auto;
+            box-shadow: 1.8px 2.4px 5px 0 rgba(0, 0, 0, 0.3) ; 
+            border-top: solid 8px #fad312;
+            padding-left:40px;
+        }
+
+        /*-----這邊是表頭------*/
+
+        .chart__title {
+            color: black;
+            font-size: 36px;
+            font-weight: bold;
+            font-family: 微軟正黑體;
+            padding-top: 50px;
+            
+        }
+
+        .chart__infor {
+            color: black;
+            font-size: 14px;
+            font-family:微軟正黑體;
+            padding-top: 35px;
+        }
+
+        .chart__infor div + div {
+            padding-top: 10px;
+        }
+
+        .chart__noties {
+            color: #e74149;
+            font-size: 16px;
+            font-family: 微軟正黑體;
+            padding-top: 40px;
+            padding-bottom: 55px;
+        }
+
+        /*----- input 開始 ----- */
+        .input__block {
+            margin-bottom: 50px;
+        }
+
+        .input__title {
+            color: black;
+            font-size: 20px;
+        }
+
+        .required .input__title::after {
+            content: ' *';
+            color: #e74149;
+            font-size: 20px;
+        }
+
+        .input__text {
+            margin-top: 25px;
+            
+        }
+        /*----- 處理 error 紅字相關----- */
+        .input__error__notify {
+            color:red;
+            font-size:12px;
+            position:absolute; /*附註!aboulute應該要寫在這邊,不然hide-error被刪掉 紅字還是會造成移動*/
+            margin-top: 10px;
+
+        }
+
+        .hide-error .input__error__notify {
+            display:none;
+            
+        }
+
+
+        /*----- radio 處理 ----- */
+
+        .input__radio {
+            padding-top: 24px;
+        }
+        
+        /*----- 特例(小標) 處理 ----- */
+        .input__subtitle {
+            padding-top: 12px;
+        }
+
+        /*----- 提交按鈕 處理 ----- */
+        .input__submit {
+            color: black;
+            border-radius: 3px;
+            background: #fad312;
+            padding: 12px 32px;
+            font-size: 16px;
+            border: none;
+        }
+
+        .chart__warn {
+            font-size: 14px;
+            color: black;
+            padding-top: 20px;
+            padding-bottom: 35px;
+        }
+
+        .footer_infor {
+            background: #000000;
+            color: #999999;
+            font-size: 13px;
+            font-family: 微軟正黑體;
+            text-align: center;
+            padding: 24px 12px;
+        }
+
+    </style>
+
+    <body>
+        <div class='chart'>
+            <div class='chart__title'>新拖延運動報名表單</div>
+            <div class='chart__infor'>
+                <div>活動日期：2020/12/10 ~ 2020/12/11</div>
+                <div>活動地點：台北市大安區新生南路二段1號</div>
+            </div>
+            <div class='chart__noties'>*必填</div>
+        
+            <form class='chart__input'>
+                <div class= 'input__block required hide-error'>
+                    <div class='input__title'>暱稱</div>
+                    <div class='input__text'><input name='nickName' type='text' placeholder="該如何稱呼您?"/></div>
+                    <div class='input__error__notify'>請問閣下尊姓大名?</div>
+                </div>
+
+                <div class= 'input__block required hide-error'>
+                    <div class='input__title'>電子郵件</div>
+                    <div class='input__text'><input name='mail' type='text' placeholder="您的電子郵件"/></div>
+                    <div class='input__error__notify'>閣下飛鴿傳書地址?</div>
+                </div>
+
+                <div class= 'input__block required hide-error'>
+                    <div class='input__title'>手機號碼</div>
+                    <div class='input__text'><input name='phoneNumber' type='text' placeholder="您的手機號碼"/></div>
+                    <div class='input__error__notify'>如何找到您的神奇傳聲筒</div>
+                </div>
+                
+                <div class= 'input__block required hide-error'>
+                    <div class='input__title'>報名類型</div>
+                    <div class='input__radio'><input type='radio' value='躺在床上用想像力實作' name='type' id='bed'/><label for='bed'>躺在床上用想像力實作</label></div>
+                    <div class='input__radio'><input type='radio' value='趴在地上滑手機找現成' name='type' id='floor'/><label for='floor'>趴在地上滑手機找現成</label></div>
+                    <div class='input__error__notify'>請填報名類型</div>
+                </div>
+                
+                <div class= 'input__block required hide-error'>
+                    <div class='input__title'>怎麼知道這個活動的?</div>
+                    <div class='input__text'><input name='how' type='text' placeholder="您的回答"/></div>
+                    <div class='input__error__notify'>怎知到~~到底怎知道的?</div>
+                </div>
+                
+                <div class= 'input__block'>
+                    <div class='input__title'>其他</div>
+                    <div class='input__subtitle'>對活動的一些建議</div>
+                    <div class='input__text'><input name='advice' type='text' placeholder="您的回答"/></div>
+                </div>
+                
+                <input class='input__submit' type='submit'/><!--/*如果這邊用div包起來會造成提交按鈕有邊界，變成按鈕在一個黃色色塊上面*/-->
+                <div class='chart__warn'>請勿透過表單送出您的密碼</div>
+            </form>
+        </div>
+        <footer>
+            <div class='footer_infor'>© 2020 © Copyright. All rights Reserved.</div>
+        </footer>
+        <script>
+            document.querySelector('.chart__input').addEventListener('submit', function(e){
+                e.preventDefault()
+                let hasError = false
+                let values = {}
+                const inputTextDatas = document.querySelectorAll('.required input[type=text]')
+                for(let input of inputTextDatas) {
+                    if(!input.value) {
+                        input.parentNode.parentNode.classList.remove('hide-error')
+                        hasError = true
+                    } else {
+                        input.parentNode.parentNode.classList.add('hide-error')
+                        values[input.name] = input.value
+                    }
+                }
+                //radio 確認
+                const elements = document.querySelectorAll('.required')
+                for (let element of elements) {
+                    const inputRadioDatas = element.querySelectorAll('input[type=radio]')
+                    if(!inputRadioDatas.length) continue
+                    let hasValue = [...inputRadioDatas].some(radio =>radio.checked === true)
+                    if(!hasValue) {
+                        element.classList.remove('hide-error')
+                        hasError = true
+                    } else { 
+                        element.classList.add('hide-error')
+                        let r = element.querySelector('input[type=radio]:checked')
+                        values[r.name] = r.value //報名類型新增失敗 -> 因為本來沒幫 radio 設 value
+                   }
+                
+                   if(!hasError) {
+                    alert(`
+                        請確認是否正確
+
+                        暱　　稱 : ${values.nickName}
+                        電子郵件 : ${values.mail}
+                        手機號碼 : ${values.phoneNumber}
+                        報名類型 : ${values.type}
+                        如何得知 : ${values.how}
+                        `)
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
