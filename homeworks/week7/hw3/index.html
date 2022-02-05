@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>test2</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css" />
+    </head>
+    <style>
+        .wapper{
+            max-width: 376px;
+            margin:10% auto;
+            box-shadow: 1.8px 2.4px 5px 0 rgba(0, 0, 0, 0.3) ;
+            padding:15px;
+        }
+
+        .title {
+            font-family:微軟正黑體;
+            font-size:30px;
+        }
+
+        input[type=text] {
+            border: 0; /*取消外框線*/
+            outline: none; /*被選到時外面不會有一圈框*/
+            width: 80%;
+            margin-right: 10px;
+            margin-left: 5px;
+            border-bottom: solid 2px gray;
+            font-family: 微軟正黑體;
+            font-size: 15px;
+        }
+
+        .btn-new {
+            border: 0;
+            outline: none;
+            background-color:white;
+            font-family: 微軟正黑體;
+            text-align: center;
+
+        }
+
+        .btn-new:hover {
+            background: #E0E0E0;
+            border-radius: 10px;
+            
+        }
+
+        .task-block {
+            display: flex;
+            align-items: center;
+            margin-right:10px;
+        }
+
+
+        .task-input {
+            font-family: 微軟正黑體;
+            font-size: 15px;
+            flex:1;/*占據整個空間，讓Btn跑到最後面*/
+            background: white;
+            margin-left:6px;
+            padding:6px;
+            border-radius: 15px;
+            
+        }
+
+        .task-input:hover {
+            background: #E0E0E0;
+        }
+
+        .btn-delete {
+            border: none;
+            text-decoration: none;
+            background-color: white;
+            font-family: 微軟正黑體;
+            font-size: 12px;
+            
+        }
+
+        /*刪除線效果*/
+        .task-checked {
+            text-decoration:line-through;
+            color:#787878;
+        }
+
+    </style>
+
+    <body>
+        <div class ='wapper'>
+            <h1 class ='title'>Todo</h1>
+            <input type =text placeholder='type in here!'/>
+            <button class='btn-new'>新增</button>
+                  
+            <div class ='tasks'>
+                <div class ='task-block'>
+                    <p class ='task-input'>finish homework</p>
+                    <button class ='btn-delete'>X</button>
+                </div>
+                <div class ='task-block'>
+                    <p class ='task-input'>task2</p>
+                    <button class ='btn-delete'>X</button>
+                </div>
+                <div class ='task-block'>
+                    <p class ='task-input'>task3</p>
+                    <button class ='btn-delete'>X</button>
+                </div>
+            </div>
+        </div> 
+        <script>
+            //新增
+            document.querySelector('.btn-new').addEventListener('click',function(e) {
+                const inputValue = document.querySelector('input[type=text]').value
+                if(!inputValue) return
+                const newDiv = document.createElement('div')
+                newDiv.classList.add('task-block')
+                newDiv.innerHTML =`
+                    <p class ='task-input'>${escapeHtml(inputValue)}</p>
+                    <button class ='btn-delete'>X</button>
+                    `
+                document.querySelector('.tasks').appendChild(newDiv)
+                document.querySelector('input[type=text]').value = ''
+            
+            })
+            
+            //完成的刪除線
+            const taskChecked = document.querySelector('.tasks')
+            taskChecked.addEventListener('click',function(e) {
+                const clickTarget = e.target
+                if(clickTarget.classList.contains('task-input')) {
+                    clickTarget.classList.toggle('task-checked')
+                }
+            })
+
+            //刪除功能 
+            /* 超級注意!!! 不能監聽 btn-delete
+               因為代碼執行的順序問題，這邊的代碼在一開始就會被執行了，
+               但是btn-delete是JS動態新增的，在執行的時候後面的元素沒被創造出來
+               所以會沒被加到監聽器。
+               雖然也可以在創造元素的時候順便加上監聽器，但還是用 event Delegation 會比較好*/
+            
+            const taskDeleted = document.querySelector('.tasks')
+            taskDeleted.addEventListener('click',function(e) {
+                const clickTarget = e.target
+                if(clickTarget.classList.contains('btn-delete')) {
+                    clickTarget.parentNode.remove()
+                    return
+                }
+            })
+            //跳脫功能
+            function escapeHtml(unsafe) {
+              return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;")
+            }
+        </script>
+    </body>
+</html>
