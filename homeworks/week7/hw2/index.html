@@ -357,7 +357,7 @@
                  const checkLevel = clickTarget.parentNode.classList
                  /*註解
                  [...] 把 nodeList 變成 array
-                 array.some */
+                 array.some()代表這個array裡面是否有符合條件的東西 */
                  if([...checkLevel].some(x=>x=='question__block')){
                     clickTarget.parentNode.classList.toggle('hide__answer')
                  }
