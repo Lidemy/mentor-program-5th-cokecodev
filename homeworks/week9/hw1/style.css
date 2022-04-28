@@ -1,0 +1,169 @@
+
+/* --全域設定-- */
+html {
+    font-family: 微軟正黑體;
+    font-size: 12px;
+    box-sizing:border-box;
+}
+
+h1 {
+    border: 0px;
+    margin: 0px;
+}
+
+.debugger * {
+    border: 1px solid gold;
+}
+
+
+/* -- header -- */
+body {
+    background:#f7f7f7;
+    margin: 0;
+}
+
+.warning {
+    background: #ffc4c6;
+    color: #a20606;
+    font-size: 1.2rem;
+    padding: 10px;
+    text-align: center;
+}
+
+/* -- main -- */
+.board {
+    background: white;
+    max-width: 600px;
+    width: 100%;
+    margin: 20px auto;
+    padding: 20px;
+    box-shadow: 1px 1px 3px #e8e8e8;
+    border-radius: 8px;
+}
+
+.board__top {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.board__title {
+    font-size: 2rem;
+    font-weight: lighter;
+    margin: 1.2rem 0;
+}
+
+.error__message {
+    color: red;
+    font-size:1.2rem;
+    font-weight: 530;
+    margin-bottom: 1.2rem;
+}
+
+.board__btns {
+    text-decoration: none;
+}
+
+.board__btn {
+    border:1px solid #c2dffb;
+    background: white;
+    padding: 8px 16px;
+    font-weight: 400;
+    color: #583c63;
+    border-radius: 5px;
+    margin-left:5px;
+    text-decoration: none;
+}
+
+
+.board__greeting {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.nickname__title, 
+.form__block__title {
+    color: #583c63;
+}
+
+.nickname__input,
+.form__block__input {
+    border: 1px solid #c2dffb;
+    border-radius: 2.5px;
+    margin-bottom: 8px;
+    outline: none;
+}
+
+.broad__content {
+    display: flex;
+    align-items: flex-end;
+}
+
+.broad__content textarea {
+    border: 1px solid #c2dffb;
+    width: 100%;
+    border-radius: 5px;
+    height: 100px;
+    margin-bottom: 8px;
+    outline: none; /* 讓準備要輸入時，外面不要一圈黑線 */
+}
+
+::placeholder{
+    color: #c2dffb;
+}
+
+.form__submit {
+    border:1px solid #c2dffb;
+    background: white;
+    padding: 8px 15px; 
+    font-weight: 400;
+    color: #583c63;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.form__submit:hover,
+.board__btn:hover {
+    background: #c2dffb;
+    font-weight: 400;
+    color:white;
+    transition: all 0.1s;
+}
+
+.broad__hr {
+    margin-top: 10px;
+    border-bottom: 1.2px solid #e8e8e8e8;
+}
+
+.card {
+    display: flex;
+    margin: 15px 0;
+    min-height: 70px;
+}
+
+.card__avatar {
+    min-width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #e4f0fb;
+}
+
+.card__info {
+    margin-left: 15px;
+}
+
+.card__nickname {
+    color: #a8c9e9;
+    font-weight: bold;;
+}
+
+.card__createdAt {
+    color: #a0a0a0;
+    margin-left: 5px;
+}
+
+.card__content {
+    margin-right: 10px;
+    word-break: break-word;/* 排版超級常用 */
+    white-space: pre-line;/* 排版超級常用 */
+}
