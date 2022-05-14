@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>抽獎活動!</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css" />
+    </head>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+
+        .navbar {
+            box-shadow:-1.4px -1.4px 6px 0 #97a2a0 ;  
+        }
+        /*這邊上面是在寫陰影*/
+
+        .navbar .wapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 84px;
+            background: white;
+            padding: 0px 24px;  
+        }
+       
+        .navbar__site-name{
+            color: #489846;
+            font-size: 36px;
+            font-family: 微軟正黑體;
+        }
+
+        .navbar__list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            
+        }
+
+        .navbar__list li {
+            margin-left: 24px;
+            font-family: 微軟正黑體;
+            border-radius: 8px;
+            transition:backgroud 0.1s;
+            }
+        
+
+        .navbar__list li.active, 
+        .navbar__list li:hover {
+            background: #ff7286;  
+        }
+
+        .navbar__list li.active a, 
+        .navbar__list li:hover a {
+            color: white;
+        }
+
+        .navbar__list li a {
+            display: block;
+            color: black;
+            text-decoration: none;
+            padding: 12px 24px;
+        }
+            
+        /*----section-----*/
+        .section {
+            position: relative;
+            background: url(./bg.jpg) center/cover no-repeat;
+            height:600px;
+        }
+
+        .section.FIRST {
+            background:url(./first.jpg) center/cover no-repeat;
+        }
+
+        .section.SECOND {
+            background:url(./second.jpg) center/cover no-repeat;
+        }
+
+        .section.THIRD {
+            background:url(./third.jpg) center/cover no-repeat;
+        }
+
+        .section.NONE {
+            background: black;
+            
+        }
+
+        /*--框框內--*/
+        .section__card {
+            position: absolute;
+            display: inline-block;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            font-family: 微軟正黑體;
+            color:#322929;
+            background: white;
+            border-radius: 16px;
+            max-width: 500px;/*設成 max-width 而不是 width 可以有效的讓手機版本的 card 以及整個版面不要跑版!*/
+            padding: 40px 40px 24px 20px;
+        }
+
+        .card__title {
+            color: #5ec1b6;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .discribe__block {
+            display: flex;
+            align-items: flex-start;
+            padding-bottom: 25px;
+            padding-top: 20px;
+            border-bottom: solid 1px #cdcdcd;
+            text-align: left;
+
+        }
+
+        .discribe__block div{
+            display: inline-block;
+        }
+
+        .discribe__title {
+            width: 90px; /*占用90px的寬度*/
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .discribe__content {   
+            font-size: 16px;
+            flex: 1; /*扣掉上面的90px之後，剩下的空間給它，不設定的話字會超出去。*/
+            line-height: 1.5rem;
+        }
+
+        .card__btn {
+            width: 80%;
+            background: #e62a45;
+            padding: 16px 0px;
+            color: white;
+            border-radius: 8px;
+            text-align: center;
+            margin: 0 auto;
+            margin-top: 36px;
+        }
+
+        /*----抽獎區塊----*/
+        .section__showPirze { 
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            border-radius: 16px;
+            max-width: 800px;
+            color: #292222;
+            font-family: 微軟正黑體;
+
+        }
+
+        .NONE .section__showPirze {
+            color:white;
+        }
+
+        .showPrize__title {
+            font-size: 36px;
+        }
+
+        .showPrize__btn {
+            max-width: 400px;
+            background: #e62a45;
+            padding: 16px 0px;
+            color: white;
+            border-radius: 8px;
+            text-align: center;
+            margin: 0 auto;
+            margin-top: 36px;
+        }
+
+        /*----footer-----*/
+        .footer__top {
+            background: #e8efee;
+            padding: 32px 0px;
+            color: #484848;
+        }
+
+        .footer__top .wapper {
+            display: flex;
+            justify-content: space-between;
+            padding: 0px 24px;
+        }
+
+        .footer__info {
+            margin-right: 16px;
+            font-family: 微軟正黑體;
+        }
+
+        .footer__info div + div {
+            margin-top: 10px;
+        }
+
+        .footer__site__site-name {
+            color: #489846;
+            font-size: 36px;
+            font-family: Questrial;
+        }
+
+        .footer__bottom {
+            background: #35564b;
+            padding: 15px 15px;
+            text-align: center;
+            color: white;
+            font-size: 16px;
+            font-family: 微軟正黑體;
+        }
+        
+        @media(max-width:768px) {
+            /*----navbar-----*/
+            .navbar .wapper {
+            height: 120px;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 0px;
+            }
+            .navbar__site-name {
+                margin-top:10Px;
+            }
+
+            .navbar__list {
+                display: flex;
+                width: 100%;
+            }
+            .navbar__list li {
+                flex: 1; 
+                margin-left:0px;
+                border-radius: 0px;
+                text-align: center;
+            }
+
+            .section__card {
+                width: 100%;
+                padding: 20px;
+            }
+
+
+            /*----footer-----*/
+            .footer__top .wapper {
+                flex-direction: column-reverse;
+            }
+
+            .footer__info {
+                margin-right: 0px;
+                margin-top: 10px;
+            }
+
+            .footer__site {
+                padding-bottom: 30px;
+            }
+        }
+
+
+        /* --point 放在最後面才不會被蓋掉 -- */
+        .hide { 
+            display: none;
+        }
+
+    </style>
+    <body>
+        <nav class='navbar'>
+            <div class='wapper'>
+                <div class='navbar__site-name'>Just A Bit</div>
+                <ul class='navbar__list'>
+                    <li class='active'><a href='#'>抽個大獎</a></li>
+                    <li><a href='#'>我要點餐</a></li>
+                    <li><a href='#'>查詢訂單</a></li>
+                    <li><a href='#'>常見問題</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <section class='section'>
+            <div class='section__card'>
+                <div class='card__title'>2020夏日輕盈特賞!抽獎活動辦法</div>
+                <div class='discribe__block'>
+                    <div class='discribe__title'>活動期間:</div>
+                    <div class='discribe__content'>2020/06/01~2020/07/01</div>
+                </div>
+                <div class='discribe__block'>
+                    <div class='discribe__title'>活動說明:</div>
+                    <div class='discribe__content'>今天老闆佛心來著決定給大家發獎勵，有看有機會，沒看只能幫QQ！只要在店內消費滿1000000元即有機會獲得 - 頭獎日本東京來回雙人遊！</div>
+                </div>
+                <div class='discribe__block'>
+                    <div class='discribe__title'>獎　　品:</div>
+                    <div class='discribe__content'>
+                        ❤ 頭獎一名：日本東京來回雙人遊(市價14990元)<br/>
+                        ❤ 貳獎三名：90 吋電視一台(市價5990元)<br/>
+                        ❤ 參獎十名：知名 YouTuber 簽名握手會入場券一張(市價1500元)
+                    </div>
+                </div>
+                <div class='card__btn'>
+                    我要抽獎
+                </div>  
+            </div>
+            <!--抽獎頁面-->
+            <div class='section__showPirze hide'>
+                <div class='showPrize__title'>恭喜你中頭獎了！日本東京來回雙人遊！</div>
+                <div class='showPrize__btn'>
+                    我要抽獎
+                </div>
+            </div>
+        </section>
+
+         <footer>
+             <div class='footer__top'>
+                 <div class='wapper'>
+                    <div class='footer__info'>
+                        <div>餐館地址: 天上地下天堂路三分之一里六段520號</div>
+                        <div>訂位專線：02-1314-5566</div>
+                        <div>營業時間：週一〜週五 09:00~18:00 / 週六、週日、國定假日（含連假）休息</div>
+                        <div>email：service@justabite.com.tw</div>
+                    </div>
+                    <div class='footer__site'>
+                        <div class='footer__site__site-name'>Just A Bite !</div>
+                        <div>Facebook/Instargram/Youtube</div>
+                    </div>
+                 </div>
+            </div>
+
+             <div class='footer__bottom'>
+                 Copyright © 2020 Just A Bite All Rights Reserved. 咬一口股份有限公司版權所有
+            </div>
+         </footer>
+         <script>
+            // 抽獎API相關
+            const API_url ='https://dvwhnbka7d.execute-api.us-east-1.amazonaws.com/default/lottery'
+            const errorMessage='系統不穩定，請再試一次'
+
+            function handlePrize(callbackData) {
+                const request = new XMLHttpRequest() //new 網頁用的 request 出來
+                request.open('GET',API_url,true)
+                request.onload = function() {
+                    if (request.status >= 200 && request.status < 400) { //網頁狀態正常
+                        let prizeData
+                        try {
+                            prizeData = JSON.parse(request.responseText) //把拿回來的 response 變成可以用的資料格式
+                            //查一下responseText 跟response的差別???
+                            //Jquery 寫的是 this.respose 跟request.response的差別是蝦米??
+                        } catch(err) { //回傳的資料不是JSON格式
+                            callbackData(errorMessage)
+                            console.log(err)
+                            return
+                        }
+                    
+                    if(!prizeData.prize) { //如果沒有拿回資料
+                        callbackData(errorMessage)
+                        return
+                    }
+                callbackData(null, prizeData)
+                }
+            }
+
+                request.onerror = function(){
+                        alert(errorMessage)
+                }
+                request.send()
+            }
+
+                // 監聽及變動頁面 相關
+                document.querySelector('.card__btn').addEventListener('click', () => {
+                    handlePrize(function(err, prizeData) {
+                        if (err) {
+                            alert(errorMessage)
+                            return
+                        }
+            
+                    let addTheClassName
+                    let title
+                    if (prizeData.prize === 'FIRST') {
+                        addTheClassName = 'FIRST'
+                        title ='恭喜你中頭獎了！日本東京來回雙人遊！'
+                    } else if (prizeData.prize === 'SECOND') {
+                        addTheClassName = 'SECOND'
+                        title ='二獎！90 吋電視一台！'
+                    } else if (prizeData.prize === 'THIRD') { 
+                        addTheClassName = 'THIRD'
+                        title ='恭喜你抽中三獎：知名 YouTuber 簽名握手會入場券一張，bang！'
+                    } else if (prizeData.prize === 'NONE') {
+                        addTheClassName = 'NONE'
+                        title ='燈愣~銘謝惠顧'
+                    }
+                    document.querySelector('.section').classList.add(addTheClassName)
+                    document.querySelector('.showPrize__title').innerText = title
+                    document.querySelector('.section__card').classList.add('hide')
+                    document.querySelector('.section__showPirze').classList.remove('hide')
+                    })
+                })
+
+                document.querySelector('.showPrize__btn').addEventListener('click', () => {
+                    window.location.reload()// 重新載入頁面
+
+                })
+         </script>
+    </body>
+</html>
