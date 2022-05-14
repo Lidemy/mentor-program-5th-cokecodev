@@ -4,6 +4,14 @@
     require_once("utils.php");
     require_once("utils_session.php");
 
+
+    //檢查是否為作者
+    $row = getUserFromUsername($username);
+    if($row['username']!== $username || $username === NULL){
+        header('location:index.php?errCode=3');
+        die('權限不足');
+    }
+
     //檢查輸入是否為空
     if(
         empty($_POST['title'])||

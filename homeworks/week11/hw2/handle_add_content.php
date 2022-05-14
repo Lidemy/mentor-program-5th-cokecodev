@@ -2,7 +2,15 @@
     session_start();
     require_once('conn.php');
     require_once("utils.php");
+    require_once("utils_session.php");
 
+
+    //檢查是否為作者
+    $row = getUserFromUsername($username);
+    if($row['username']!== $username || $username === NULL){
+        header('location:index.php?errCode=3');
+        die('權限不足');
+    }
 
     //檢查是否輸入為空
     if(
