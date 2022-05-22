@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Twitch Top Games</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./style.css" />
+    </head>
+
+    <body>
+        <nav class='navbar'>
+            <div class='wapper'>
+                <div class='navbar__site-name'>Twitch Top Games</div>
+                <ul class='navbar__list'>
+                    <!-- 按鈕內容放這邊 -->
+                </ul>
+            </div>
+        </nav>
+
+        <section class='section__streaming'>
+            <div class='streaming__title'>
+                Loading...
+            </div>
+            <div class='streaming__discribe'>
+                Top 20 popular live streams sorted by current viewers
+            </div>
+
+            <div class='games__wapper'>
+                <!-- card放這邊 -->
+            </div>
+        </section>
+
+        <script>
+            
+            const API_URL='https://api.twitch.tv/helix/games/top?first=5'
+            const API_URL_STREAM ='https://api.twitch.tv/helix/streams?game_id='
+            const API_URL_USER ='https://api.twitch.tv/helix/users?id='
+            const STREAM_BLOCK =`<div class='streaming__game__block'>
+                                    <img class='games__preview' src='$preview'/>
+                                    <div class='games__infor'>
+                                        <div class='games__player__avatar'><img src='$logo'/></div>
+                                        <div class='games__infor__discribe'>
+                                            <div class='games__title'>$title</div>
+                                            <div class='games__palyer__name'>$userName</div>
+                                        </div>
+                                    </div>
+                                </div>`
+
+
+                getGames(function(gamesData){
+                    for(let games of gamesData) {
+                            let element = document.createElement('li')
+                            document.querySelector('.navbar__list').appendChild(element)
+                            element.outerHTML=`<li class='navbar__game' id='${games.id}'>${games.name}</li>`
+                        }
+                    
+                    // 改title
+                    document.querySelector('.streaming__title').innerText = gamesData[0].name
+                        
+                    // 遊戲串流
+                    let gameID = gamesData[0].id
+                    getStream(gameID,function(streamData) {
+                        /* 注意!!!上面這行如果沒有多加一個參數'gameID的話，就是下面的這整串被當作 gameID 丟到 getStream 這個 callbackFunction裡面ㄌ!!*/
+                        for(let stream of streamData) {
+                            
+                            //處理URL字串問題
+                            const urlData = stream.thumbnail_url
+                            const newurlData = urlData.replace(/-{width}x{height}.jpg/,'.jpg')
+                            
+                            //取logo
+
+                            /*
+                            let userID = stream.user_id
+                            //console.log(userID,'跑到logo')
+                            getAvatar(userID,function(userLogoURL) {
+                                let streamCard = document.createElement('div')
+                                document.querySelector('.games__wapper').appendChild(streamCard)
+                                streamCard.outerHTML = STREAM_BLOCK
+                                .replace('$preview', newurlData)
+                                .replace('$logo', userLogoURL)
+                                .replace('$title', stream.title)
+                                .replace('$userName', stream.user_name)
+                            
+                            })*/
+
+                            
+                            const request3 = new XMLHttpRequest()
+                            request3.open('GET',API_URL_USER + encodeURIComponent(stream.user_id),true) //取用戶ID丟進去
+                            request3.setRequestHeader('Client-Id',id /*這裡要放id*/)
+                            request3.setRequestHeader('Authorization',token /*這裡放token*/)
+                            request3.onload = function() {
+                                if(request3.status >= 200 && request3.status < 400) {
+                                    let userData = JSON.parse(request3.response)
+                                    let userLogoURL = userData.data[0].profile_image_url 
+
+                                    let streamCard = document.createElement('div')
+                                    document.querySelector('.games__wapper').appendChild(streamCard)
+                                    streamCard.outerHTML=STREAM_BLOCK
+                                    .replace('$preview', newurlData)
+                                    .replace('$logo', userLogoURL)
+                                    .replace('$title', stream.title)
+                                    .replace('$userName', stream.user_name)
+
+                                }
+                                    
+                            }
+                            request3.send()
+                            // 取logo結束
+                            
+                        }
+                    })
+                    
+                })
+
+
+                // 按鈕之後換畫面
+                document.querySelector('.navbar__list').addEventListener('click',function(e){
+                    if(e.target.tagName.toLowerCase() ==='li') {
+                        // 換標題
+                        document.querySelector('.streaming__title').innerText = e.target.innerText
+
+                        // 畫面清空
+                        document.querySelector('.games__wapper').innerHTML=''
+
+                        // 換其他的
+                        const gameID = e.target.id
+                        getStream(gameID,function(streamData){
+                            for(let stream of streamData) {
+                                    
+                                //處理URL字串問題
+                                const urlData = stream.thumbnail_url
+                                const newurlData = urlData.replace(/-{width}x{height}.jpg/,'.jpg')
+                                
+                                //取logo
+                                const request3 = new XMLHttpRequest()
+                                request3.open('GET',API_URL_USER + encodeURIComponent(stream.user_id),true) //取用戶ID丟進去
+                                request3.setRequestHeader('Client-Id',id /*這裡要放id*/)
+                                request3.setRequestHeader('Authorization',token /*這裡放token*/)
+                                request3.onload = function() {
+                                    if(request3.status >= 200 && request3.status < 400) {
+                                        let userData = JSON.parse(request3.response)
+                                        let userLogoURL = userData.data[0].profile_image_url 
+
+                                        // 新增game card 要加在這層才讀的到 userLogoURL!!
+                                        let streamCard = document.createElement('div')
+                                        document.querySelector('.games__wapper').appendChild(streamCard)
+                                        streamCard.outerHTML= STREAM_BLOCK
+                                        .replace('$preview', newurlData)
+                                        .replace('$logo', userLogoURL)
+                                        .replace('$title', stream.title)
+                                        .replace('$userName', stream.user_name)
+
+                                    }
+                                        
+                                }
+                                request3.send()
+                            }
+                        })
+                    }
+                })
+                
+
+            /*--- function 們 ---*/
+
+            function getGames(callback){
+                const request = new XMLHttpRequest()
+                request.open('GET',API_URL,true)
+                request.setRequestHeader('Client-Id',id /*這裡要放id*/)
+                request.setRequestHeader('Authorization',token /*這裡放token*/)
+                request.onload = function() { 
+                    if(request.status >= 200 && request.status < 400) {
+                        let gamesData = JSON.parse(request.response).data
+                        callback(gamesData)       
+                    }
+                }
+                request.send()
+            }
+
+            function getStream(gameID,callback) {
+                const request = new XMLHttpRequest()
+                request.open('GET',API_URL_STREAM + encodeURIComponent(gameID),true) //取遊戲ID丟進去
+                request.setRequestHeader('Client-Id',id /*這裡要放id*/)
+                request.setRequestHeader('Authorization',token /*這裡放token*/)
+                request.onload = function() {
+                    if(request.status >= 200 && request.status < 400) {
+                        let streamData = JSON.parse(request.response).data
+                        callback(streamData)
+                    }
+                }
+                request.send()
+            }
+
+            function getAvatar(userID,callback) {
+                
+                const request2 = new XMLHttpRequest()
+                request2.open('GET',API_URL_USER + encodeURIComponent(userID),true) //取用戶ID丟進去
+                request2.setRequestHeader('Client-Id',id /*這裡要放id*/)
+                request2.setRequestHeader('Authorization',token /*這裡放token*/)
+                //console.log('有成功ㄇ123')
+                request2.onload = function() {
+
+                    console.log('有成功ㄇ???')
+                    // !!! 發現從這裡就進不來ㄌ??  why ???
+
+                    if(request2.status >= 200 && request2.status < 400) {
+                        let userData = JSON.parse(request2.response)
+                        let userLogoURL = userData.data[0].profile_image_url
+                        callback(userLogoURL)
+                    } 
+                request2.send()
+                }
+            }
+        </script>
+        
+    </body>
+</html>
