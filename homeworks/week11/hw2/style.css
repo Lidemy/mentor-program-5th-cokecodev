@@ -1,0 +1,389 @@
+
+/* --全域設定-- */
+html {
+    font-family: 微軟正黑體;
+    font-size: 12px;
+    box-sizing:border-box;
+}
+
+h1, 
+body {
+    border: 0px;
+    margin: 0px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.debugger * {
+    border: 1px solid gold;
+}
+
+
+/* -- nav -- */
+.navbar {
+    background: white;
+    margin: 0;
+    height: 80px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav__right {
+    margin: 0 50px;
+}
+
+.nav__left {
+    margin: 0 50px;
+    display: flex;
+    align-items: center;
+}
+
+.nav__left a:first-child{
+    margin-left: 10px;
+}
+
+.nav__web-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-right: 5px;
+    text-decoration: none;
+    color: black;
+}
+
+
+
+.nav__btn {
+    text-decoration: none;
+    color: #787878;
+    font-size: 1.5rem;
+    padding: 10px;
+}
+
+
+/* -- banner -- */
+.banner {
+    background-image:linear-gradient(to bottom,#000000,#434343);
+    height: 240px;
+    color: #eeeeee;
+}
+
+.banner__mes {
+    display: inline-block;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.banner h1 {
+    font-size: 28px;
+}
+
+.banner p {
+    margin-left: 25px;
+}
+
+
+
+/* -- card -- */
+.cards {
+    transform:translate(0, -150px);
+    margin: 100px 0;
+}
+
+.card__block {
+    background: white;
+    width: 900px;
+    height: 400px;
+    margin: 10px auto;
+    border: 1px solid #9a9a9a;
+    box-shadow: 0 0 0 10px white;
+}
+
+.card__block__inpage{
+    background: white;
+    width: 900px;
+    margin: 10px auto;
+    border: 1px solid #9a9a9a;
+    box-shadow: 0 0 0 10px white;
+}
+
+.card__wapper {
+    margin: 20px;
+}
+
+.card__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card__title {
+    font-size: 1.2rem;
+}
+
+.card__btn,
+.page__pointer a 
+.fullpage_btn a{
+    color: #a8a8a8;
+    padding: 4px 12px;
+    text-decoration: none;
+    border: 1px solid #a8a8a8;
+}
+
+.card__btn:hover ,
+.fullpage_btn:hover a{
+    color: white;
+    background: #a8a8a8;
+    transition: all 0.1s;
+}
+
+.card__info {
+    margin: 10px 0;
+    background: #eeeeee;
+    padding: 15px;
+    color: #8f8f8f;
+}
+
+.info__type {
+    margin-left: 10px;
+}
+
+.card__content__index {
+    font-size: 1.2rem;
+    height: 205px;
+    overflow: hidden;
+    white-space: pre-wrap;/* 排版超級常用 */
+    line-height: 2em;
+}
+
+.card__content__page {
+    /*margin-top: 1.2rem;*/
+    font-size: 1.2rem;
+    white-space: pre-wrap;
+    word-break: break-all;
+    line-height: 2em;
+}
+
+.readmore__btn {
+    background: white;
+    text-decoration: none;
+    border: 1px solid #a8a8a8;
+    padding: 8px 12px;
+    color: #000000;
+    position: absolute;
+    transform: translate(0, 20px);
+}
+
+.readmore__btn:hover {
+    background: #a8a8a8;
+    color: white;
+    transition: all 0.1s;
+}
+
+.card__bottom__inpage {
+    margin-bottom: 100px;
+}
+
+
+/* -- page -- */
+.pages {
+    text-align: center;
+}
+
+.page__pointer {
+    margin-top: 10px;
+}
+
+.page__pointer a {
+    border: 1px solid #a8a8a8;
+    text-decoration: none;
+    padding: 5px;
+    color:#a8a8a8;
+    background:white;
+}
+
+.page__pointer a:hover {
+    color:white;
+    background:#a8a8a8;
+    transition: all 0.1s;
+}
+
+
+/* -- footer -- */
+footer {
+    background: black;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer__mes {
+    color: #fefefe;
+}
+
+
+/* ----------- 其他頁面 ------------ */
+/* -- admin 頁面 -- */
+
+.main {
+    transform:translate(0, -150px);
+    margin: 100px 0;
+}
+
+.card__admin {
+    background: white;
+    width: 900px;
+    margin: 30px auto;
+    padding: 10px 20px;
+    border: 1px solid gray;
+}
+
+.admin__page {
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.admin__page__title {
+    text-decoration: none;
+    color: black;
+}
+
+.admin__time {
+    margin-left: 5px;
+}
+
+.admin__block:not(:last-child) .broad__hr {
+    border-bottom: 1.2px solid #9a9a9a;
+    margin:10px 0;
+}
+
+
+/* -- update_content 頁面 -- */
+.update__card {
+    background: white;
+    width: 900px;
+    margin: 10px auto;
+    border: 1px solid #9a9a9a;
+    box-shadow: 0 0 0 10px white;
+}
+
+.update__form {
+    margin: 30px;
+}
+
+.update__title {
+    font-size: 1.5rem;
+}
+
+.update__content-title input{
+    width: 100%;
+    margin: 1rem 0;
+    outline: none;
+    box-sizing: border-box;
+    padding: 10px 5px;
+}
+
+textarea {
+    box-sizing: border-box;
+    width: 100%;
+    resize: none;
+    height: 350px;
+    margin: 1rem 0;
+    outline: none;
+    padding: 10px;
+}
+
+.update__btn,
+.fullpage_btn a {
+    padding: 4px 12px;
+    border: 1px solid #a8a8a8;
+    background: white;
+    color: #a8a8a8;
+}
+
+.update__btn:hover,
+.fullpage_btn:hover a {
+    background: #a8a8a8;
+    color: white;
+}
+
+
+/* -- login 頁面 -- */
+.login__card {
+    background: white;
+    width: 450px;
+    height: 540px;
+    margin: 10px auto;
+    border: 1px solid #9a9a9a;
+}
+
+.login__wapper {
+    margin: 60px;
+}
+
+.login__card__title {
+    font-size: 3rem;
+    font-weight: 450;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.input__block {
+    margin: 20px 0;
+
+}
+
+.login__form__title {
+    margin: 10px 0;
+    font-size: 1.rem;
+    font-weight:450;
+}
+
+.input__block input {
+    width: 100%;
+    padding: 10px 0;
+    outline: none;
+}
+
+.sign-in__btn {
+    margin: 60px 0;
+    color: #a8a8a8;
+    background-image: linear-gradient(to top, #000, #434343);
+    font-size: 1.2rem;
+    font-weight: lighter;
+    margin-top: 80px;
+    height: 45px;
+
+}
+
+
+/* -- full page 底部按鈕 -- */
+.page__bottom__info {
+    text-align: center;
+    margin: 10px 0;
+}
+.page__bottom__info span{
+    margin-left: 5px;
+}
+
+/* ----------全域------------ */
+
+.hide {
+    display:none;
+}
+
+.error__message {
+    color: red;
+    font-size: 1.5rem;
+    font-weight: 530;
+    margin-left: 1.2rem;
+}
