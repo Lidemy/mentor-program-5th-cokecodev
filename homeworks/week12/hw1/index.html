@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Week12 留言板</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 引入 JQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- 引入 getbootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <style>
+        .comments-list {
+            margin-bottom:40px;
+        }
+
+        .card {
+            margin-top:16px;
+        }
+
+        .load-more {
+            margin-top:16px;
+        }
+
+    </style>
+    <script>
+        function escape(toOutput) {
+            return toOutput.replace(/\&/g, '&amp;')
+                .replace(/\</g, '&lt;')
+                .replace(/\>/g, '&gt;')
+                .replace(/\"/g, '&quot;')
+                .replace(/\'/g, '&#x27')
+                .replace(/\//g, '&#x2F');
+        }
+
+        function appendCommentToDOM(container, comment, isPrepend) {
+            html =`
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">${escape(comment.nickname)}</h5>
+                        <p class="card-text">${escape(comment.content)}</p>
+                    </div>
+                </div>
+            `
+            if(isPrepend) {
+                container.prepend(html)
+            } else {
+                container.append(html)
+            }
+        }
+
+
+        const sideKey = 'huhu'
+        const loadMoreButtonHTML =`<button type="button" class="load-more btn btn-primary">載入更多</button>`
+        let lastId = null
+        let isEnd = false
+        let URLPath ="http://mentor-program.co/mtr04group3/cokecode/week12/hw1"
+        $(document).ready(() => {
+            const commentsDOM = $('.comments-list')
+            getComments()
+            
+            // 載入更多
+            $('.comments-list').on('click', '.load-more', () => {
+                getComments()
+            })
+            
+            // 傳參數去 API
+            $('.add-comment-form').submit((e) => {
+                // 擋 submit
+                e.preventDefault();
+
+                // 把資料從 input 挖出來
+                const newCommentData = {
+                    'site_key':'huhu', //這裡是要傳去 API 的 key 的名字要寫對 
+                    'nickname': $('input[name=nickname]').val(),
+                    'content': $('textarea[name=content]').val()
+                }
+            
+                // 丟去 API
+                $.ajax({
+                    type: 'POST',
+                    url: URLPath + '/api_add_comments.php',
+                    data: newCommentData
+                }).done(function(data) {
+                        if(!data.ok) {
+                            alert(data.message)
+                            return
+                        }
+                        // 清空輸入欄，產生新的 card
+                        $('input[name=nickname]').val('')
+                        $('textarea[name=content]').val('')
+                        appendCommentToDOM(commentsDOM, newCommentData, true)
+                });
+            })
+
+        })
+
+        
+        function getCommentsAPI(siteKey, before, cb) {
+            let URL = `${URLPath}/api_get_comments.php?site_key=${sideKey}`
+            if(before){
+                URL += '&before=' + before
+            }
+            $.ajax({
+                url: URL,
+            }).done(function(data) {
+                cb(data)
+            });
+        }
+
+        function getComments() {
+            const commentsDOM = $('.comments-list')
+            
+            //如果後面沒資料了 => 跳出
+            if(isEnd) { 
+                return
+            }
+
+            // 如果後面還有資料 => 拿資料
+            $('.load-more').hide()  // 先藏按鈕
+            getCommentsAPI(sideKey, lastId, data => {
+                if(!data.ok) {
+                    alert(data.message)
+                    return
+                }
+
+                // 有資料的話拿出來，創新的 Card
+                const comments = data.discussions;
+                for(comment of comments) {
+                    appendCommentToDOM(commentsDOM, comment)
+                }
+
+                // 判斷是否為資料尾端?
+                let length = comments.length
+                if(length === 0) {
+                    isEnd = true
+                    $('.load-more').hide()
+                } else {   // 不是的話傳 id 出去，再創一個 load-more 按鈕
+                    lastId = comments[length - 1].id
+                    $('.comments-list').append(loadMoreButtonHTML)
+                }
+            });
+        }
+    </script>
+
+</head>
+
+
+<body>
+    <div class="container">
+        <form class="add-comment-form">
+            <div class="form-group">
+                <label for="content-nickname">暱稱</label>
+                <input type="text" name="nickname" class="form-control" id="content-nickname">
+                <label for="content-textarea">留言內容</label>
+                <textarea name="content" class="form-control" id="content-textarea" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <div class = "comments-list">
+            <!-- card 放在這裡-->
+        </div>
+    </div>
+</body>
+</html>
