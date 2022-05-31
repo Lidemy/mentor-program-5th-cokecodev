@@ -1,0 +1,43 @@
+.update {
+    &__card {
+        background: white;
+        width: 900px;
+        margin: 10px auto;
+        border: 1px solid $gray-01;
+        box-shadow: 0 0 0 10px white;
+    }
+
+    &__form {
+        margin: 30px;
+    }
+
+    &__title {
+        font-size: 1.5rem;
+    }
+    
+    &__content-title input{
+        width: 100%;
+        margin: 1rem 0;
+        outline: none;
+        box-sizing: border-box;
+        padding: 10px 5px;
+    }
+
+    &__btn {
+        @extend %card-btn;
+
+        &:hover {
+            @extend %card-btn-hover;
+        }
+    }
+}
+
+textarea {
+    box-sizing: border-box;
+    width: 100%;
+    resize: none;
+    height: 350px;
+    margin: 1rem 0;
+    outline: none;
+    padding: 10px;
+}

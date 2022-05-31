@@ -1,0 +1,17 @@
+.page__bottom__info {
+    text-align: center;
+    margin: 10px 0;
+
+     span{
+        margin-left: 5px;
+    }
+
+    .fullpage_btn a{
+        @extend %card-btn;
+    }
+
+    .fullpage_btn:hover a{
+        @extend %card-btn-hover;
+    }
+        
+}
