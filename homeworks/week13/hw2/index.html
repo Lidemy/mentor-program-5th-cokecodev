@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Week13 留言板 plugin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 引入 JQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- 引入 getbootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <script src="./dist/main.js"></script>
+    <script>
+        $(document).ready(() => {
+            commentPlugin.init({
+                siteKey:'huhu',
+                apiUrl: 'http://mentor-program.co/mtr04group3/cokecode/week12/hw1/',
+                containerSelector:'.comment-area'
+            })
+            commentPlugin.init({
+                siteKey:'huhu777',
+                apiUrl: 'http://mentor-program.co/mtr04group3/cokecode/week12/hw1/',
+                containerSelector:'.comment-area2'
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="comment-area">
+            <!-- 本來的內容會在這邊被 JS 動態丟進來 -->
+        </div>
+        <div class="comment-area2">
+            <!-- 本來的內容會在這邊被 JS 動態丟進來 -->
+        </div>
+    </div>
+</body>
+</html>
