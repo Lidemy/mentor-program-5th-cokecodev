@@ -1,0 +1,207 @@
+         /* 全域設定 */
+         html {
+            font-size: 12px;
+            font-family:微軟正黑體;
+            margin:0;
+            padding:0;
+        } 
+
+        body {
+            margin:0;
+        }
+
+        
+        ul{
+            padding-inline-start:0px;
+            margin:0;
+        }
+
+        /* navbar */
+
+        .navbar {
+            background: #6441a5;
+            /*width: 100%;*/
+        }
+
+        .navbar .wrapper {
+            height: 80px;
+            padding: 0 15px; /*本來不小心寫成了margin 目前這樣語意比較對*/
+            display: flex; /* 注意!! 讓兩組可以在同一行*/
+            align-items: center;
+            justify-content: space-between; /* 注意!!讓兩組物品分兩邊 */
+            
+        }
+
+        .navbar__site-name {
+            color: white;
+            font-size: 2rem; /* 注意中間不可以有空格! */
+            
+        }
+
+        .navbar__list {
+            list-style: none; /* 前面不要有點點 */
+            font-size: 1.2rem;
+            display: flex;  /* 變成可以在同一排 */
+        }
+
+        .navbar__list li {
+            /*text-decoration: none;  <a> 不要有底線 */
+            padding: 20px 10px;
+            color: white;
+            font-weight:bold;
+            cursor: pointer;
+            margin-left:10px;
+        }
+
+        .navbar__list li:hover {
+            background: #7f63b2;
+            border-radius: 30px;
+        }
+
+
+
+        /* 這邊是卡片區 */
+
+        .section__streaming {
+            height: 1500px; /*如果不用白色這行要刪掉*/
+            text-align: center;
+            background:white;
+        }
+
+        .streaming__title {
+            font-size: 3rem;
+            padding: 2.5rem;
+            font-weight: lighter;
+        }
+
+        .streaming__describe {
+            font-size: 1.5rem;
+            padding-bottom: 2rem;
+        }
+
+        .games__wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            display:flex;
+            margin: 0 auto;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .streaming__game__block {
+            width: 270px;
+            margin: 10px 10px;
+            background: #7550b6;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 5px 5px #958e8e75;
+            transform: scale(1);
+            transition: all 0.1s;
+        }
+
+        .empty__game__block {
+            width: 270px;
+            margin: 10px 10px;
+        }
+
+        /* 卡片hover */
+        .streaming__game__block:hover {
+            transform: scale(1.1);
+            box-shadow: none;
+            transition: all 0.1s;
+        }
+
+        .games__preview {
+            width: 100%;
+        }
+
+
+        .games__infor {
+            display: flex;
+            margin: 5px 10px 5px 5px;
+            text-align: left;
+        }
+
+        .games__player__avatar { 
+            border-radius: 50%;
+            background: white;
+            height: 50px;
+            width: 50px;
+            overflow: hidden;
+        }
+
+        .games__player__avatar img {
+            height: 100%;
+            width: 100%;
+            
+        }
+
+        .games__infor__describe {
+            color: white;
+            margin: 0.5rem 0 0 1.2rem;
+            flex: 1;
+            max-width: 190px;
+            /* 文字變成...需要明確的定義出上面盒子的寬度，然後在盒子下方的文字區塊下那三行指令
+               這邊的數值是用 flex:1; 切好板之後抓的 */
+        }
+
+        .games__title {
+            font-size: 1.2rem;
+            font-weight:bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .games__palyer__name {
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        @media(max-width:768px) {
+
+            /*----navbar-----*/
+            .navbar .wrapper {
+            width: 100%;
+            flex-direction: column;
+            height: 155px;
+            padding: 0px;
+            }
+
+            .navbar__site-name {
+            margin-top:1.5rem;
+            }
+
+            .navbar__list {
+            display: flex;/*test*/
+            align-items: center;
+            padding: 0px;
+            width: 100%;
+            font-size:1.2rem;
+            }
+
+            .navbar__list li {
+            flex: 1; /* 占整行 */
+            margin-left: 0px;/*test*/
+            border-radius: 0px;
+            text-align: center;
+            padding: 20px 0px;
+            }
+
+            .navbar__list li:hover {
+            background: #6441a5;
+            border-radius: 0px;
+        }
+
+
+
+        }
+
+        /* 隱藏用 */
+        .hide {
+            display:none;
+        }
+

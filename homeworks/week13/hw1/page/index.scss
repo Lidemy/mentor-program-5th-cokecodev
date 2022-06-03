@@ -1,0 +1,173 @@
+.navbar {
+    @include flex-between-center;
+    background: white;
+    margin: 0;
+    height: 80px;
+    width: 100%;  
+}
+
+.nav {
+    &__right {
+        margin: 0 50px;
+    }
+    
+    &__left {
+        margin: 0 50px;
+        display: flex;
+        align-items: center;
+
+        a:first-child {
+            margin-left: 10px;
+        }
+    }
+    
+    &__web-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-right: 5px;
+        text-decoration: none;
+        color: black;
+    }
+
+    &__btn {
+        text-decoration: none;
+        color: #787878;
+        font-size: 1.5rem;
+        padding: 10px;
+    }  
+}
+
+.banner {
+    background-image:linear-gradient(to bottom,#000000,#434343);
+    height: 240px;
+    color: $gray-03;
+
+    &__mes {
+        display: inline-block;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+    
+    h1 {
+        font-size: 28px;
+    }
+
+    p {
+        margin-left: 25px;
+    }
+}
+
+
+.cards {
+    transform:translate(0, -150px);
+    margin: 100px 0;
+
+    .readmore__btn {
+        background: white;
+        text-decoration: none;
+        border: 1px solid $gray-02;
+        padding: 8px 12px;
+        color: black;
+        position: absolute;
+        transform: translate(0, 20px);
+
+        &:hover {
+            background: $gray-02;
+            color: white;
+            transition: all 0.1s;
+        }
+    }
+}
+
+.card { 
+    &__block {
+        @include card-block-inpage;
+        height: 400px; 
+
+        &__inpage {
+            @include card-block-inpage;
+        }
+    }
+    
+    &__wapper {
+        margin: 20px;
+    }
+    
+    &__top {
+        @include flex-between-center;
+    }
+    
+    &__title {
+        font-size: $card-font;
+    }
+    
+    &__btn {
+        @extend %card-btn;
+
+        &:hover {
+            @extend %card-btn-hover;
+        }
+    }
+
+    &__info {
+        margin: 10px 0;
+        background: $gray-03;
+        padding: 15px;
+        color: #8f8f8f;
+
+        .info__type {
+            margin-left: 10px;
+        }
+    }
+    
+    &__content__index {
+        @include card-content;
+        height: 205px;
+        overflow: hidden;
+    }
+    
+    &__content__page {
+        @include card-content;
+        word-break: break-all;
+    }
+    
+    &__bottom__inpage {
+        margin-bottom: 100px;
+    }
+}
+
+.pages {
+    text-align: center;
+}
+
+
+.page {
+   &__pointer {
+        margin-top: 10px;
+
+        a {
+            @extend %card-btn;
+            padding: 5px;
+            background: white;
+
+            &:hover {
+                color: white;
+                background: $gray-02;
+                transition: all 0.1s;
+            }
+        }
+
+    } 
+}
+
+footer {
+    @include flex-center-center;
+    background: black;
+    height: 35px;
+
+    &__mes {
+        color: #fefefe;
+    }
+}

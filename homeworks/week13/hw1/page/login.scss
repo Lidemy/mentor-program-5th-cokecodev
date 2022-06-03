@@ -1,0 +1,48 @@
+.login {
+    
+    &__card {
+        width: 450px;
+        height: 540px;
+        margin: 10px auto;
+        border: 1px solid $gray-01;
+        background: white;
+
+        &__title {
+            font-size: 3rem;
+            font-weight: 450;
+            text-align: center;
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }    
+    }
+
+    &__wapper {
+        margin: 60px;
+
+        input {
+            width: 100%;
+            padding: 10px 0;
+            outline: none;
+        }
+    }
+
+    &__block {
+        margin: 20px 0;
+    }
+
+    &__form__title {
+        margin: 10px 0;
+        font-size: 1.5rem;
+        font-weight:450;
+    }
+}
+
+.sign-in__btn {
+    margin: 60px 0;
+    color: $gray-02;
+    background-image: linear-gradient(to top, #000, #434343);
+    font-size: $card-font;
+    font-weight: lighter;
+    margin-top: 80px;
+    height: 45px;
+}

@@ -1,0 +1,26 @@
+@mixin flex-center-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+@mixin flex-between-center {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@mixin card-block-inpage {
+    background: white;
+    width: 900px;
+    margin: 10px auto;
+    border: 1px solid $gray-01;
+    box-shadow: 0 0 0 10px white;
+}
+
+@mixin card-content {
+    font-size: 1.2rem;
+    white-space: pre-wrap;
+    line-height: 2em;
+}

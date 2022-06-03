@@ -1,0 +1,21 @@
+@import '_varibles';
+@import '_mixin';
+@import '_reset';
+@import '_extend';
+
+@import './page/index';
+@import './page/admin-page';
+@import './page/update';
+@import './page/login';
+@import './page/pull-page';
+
+.hide {
+    display:none;
+}
+
+.error__message {
+    color: red;
+    font-size: 1.5rem;
+    font-weight: 530;
+    margin-left: 1.2rem;
+}

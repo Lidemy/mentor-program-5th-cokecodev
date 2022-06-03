@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Twitch - fetch 重構 ver2</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./style.css" />
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    </head>
+
+    <body>
+        <nav class='navbar'>
+            <div class='wrapper'>
+                <div class='navbar__site-name'>Twitch Top Games</div>
+                <ul class='navbar__list'>
+                    <!-- 按鈕內容放這邊 -->
+                </ul>
+            </div>
+        </nav>
+
+        <section class='section__streaming'>
+            <div class='streaming__title'>
+                Loading...
+            </div>
+            <div class='streaming__describe'>
+                Top 20 popular live streams sorted by current viewers
+            </div>
+
+            <div class='games__wrapper'>
+                <!-- card放這邊 -->
+            </div>
+        </section>
+
+        <script>        
+            const API_URL='https://api.twitch.tv/helix'
+            const STREAM_BLOCK =`<div class='streaming__game__block'>
+                                    <img class='games__preview' src='$preview'/>
+                                    <div class='games__infor'>
+                                        <div class='games__player__avatar'><img src='$logo'/></div>
+                                        <div class='games__infor__describe'>
+                                            <div class='games__title'>$title</div>
+                                            <div class='games__player__name'>$userName</div>
+                                        </div>
+                                    </div>
+                                </div>`
+
+            init()
+            // 第一次進入頁面
+            async function init(){
+                try {
+
+                    // 抓 top5 data
+                    const array = await getGames()
+                    let gamesData = array.data
+                    createBtn(gamesData)
+
+                    // 改title
+                    $('.streaming__title').text(gamesData[0].name)
+
+                    // 遊戲串流 + 生成 card
+                    let gameID = gamesData[0].id
+                    createMainBody(gameID)
+                    
+                } catch(err) {
+                    console.log('ERROR:', err)
+                }
+            }
+
+            // 按鈕之後換畫面
+            $('.navbar__list').on('click', 'li' , e => {
+                const titleName = $(e.target).text()
+            
+                // 換標題
+                $('.streaming__title').text(titleName)
+
+                // 畫面清空
+                $('.games__wrapper').text('')
+                
+                // 重串遊戲 + 生成 card
+                let gameID = e.target.id
+                createMainBody(gameID)
+            })
+
+
+    /* --- function 們 --- */
+
+            // 建立 5 個按鈕
+            function createBtn(gamesData){
+                for(let games of gamesData) {
+                    let element = `<li class='navbar__game' id='${games.id}'>${games.name}</li>`
+                    $('.navbar__list').append(element)
+                }
+            }
+
+            // 生成 card
+            function renderCards(newurlData, userLogoURL, stream){
+                let streamCard = document.createElement('div')
+                $('.games__wrapper').append(streamCard)
+                streamCard.outerHTML = STREAM_BLOCK
+                .replace('$preview', newurlData)
+                .replace('$logo', userLogoURL)
+                .replace('$title', stream.title)
+                .replace('$userName', stream.user_name)
+            }
+
+
+    /* --- fetch function 們 --- */
+
+            // 抓 top5 data
+            async function getGames() {
+                const API_URL_TOP5 = `${API_URL}/games/top?first=5`
+                const response = await fetch(API_URL_TOP5, {
+                    method: 'GET',
+                    headers: new Headers({
+                        'Client-Id':id /* 這裡要放 id */,
+                        'Authorization':token /* 這裡要放 token */
+                    })
+                })
+                const data = await response.json()
+                return data
+            }
+
+            // 抓 stream data
+            async function getStream(gameID) {
+                const API_URL_STREAM = `${API_URL}/streams?game_id=${encodeURIComponent(gameID)}`
+                const response = await fetch(API_URL_STREAM,{
+                    method: 'GET',
+                    headers: new Headers({
+                        'Client-Id':id /* 這裡要放 id */,
+                        'Authorization':token /* 這裡要放 token */
+                    })
+                })
+                const data = await response.json()
+                return data
+            }
+
+            // 取 logo
+            async function getAvatar(userID) {
+                const API_URL_STREAM =`${API_URL}/users?id=${encodeURIComponent(userID)}`
+                const response = await fetch(API_URL_STREAM,{
+                    method: 'GET',
+                    headers: new Headers({
+                        'Client-Id':id /* 這裡要放 id */,
+                        'Authorization':token /* 這裡要放 token */
+                    })
+                })
+                const data = await response.json()
+                return data
+            }
+
+            // 遊戲串流 + 生成 card
+            async function createMainBody(gameID){
+                try {
+                    // 抓 stream data
+                    const streamArray = await getStream(gameID)
+                    const streamData = streamArray.data
+                    for(let stream of streamData) {
+
+                        // 處理URL字串問題
+                        const urlData = stream.thumbnail_url
+                        const newurlData = urlData.replace(/-{width}x{height}.jpg/,'.jpg')
+
+                        // 取 logo
+                        let userID = stream.user_id
+                        try {
+                            const avatarArray = await getAvatar(userID)
+                            const userData = avatarArray.data
+                            const userLogoURL = userData[0].profile_image_url
+
+                            // 生成 card
+                            renderCards(newurlData, userLogoURL, stream)
+
+                        } catch(err) {
+                            console.log('renderCard error:', err)
+                        }
+                    }
+                } catch(err) {
+                    console.log('creatCards error:', err)
+                }
+            }
+
+
+        </script>
+    </body>
+</html>

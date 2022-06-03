@@ -1,0 +1,13 @@
+%card-btn {
+    color: $gray-02;
+    padding: 4px 12px;
+    text-decoration: none;
+    border: 1px solid $gray-02;
+    background: white;
+}
+    
+%card-btn-hover {
+    color: white;
+    background: $gray-02;
+    transition: all 0.1s;
+}
